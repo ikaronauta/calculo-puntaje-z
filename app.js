@@ -280,17 +280,17 @@ function mostrarResultado3(mediaT6, sd, media) {
 function mostrarErrores() {
   document.getElementById(
     "valor1"
-  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: +
+  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: 
   <b>${tablasNovedad.join(", ")}</b>`;
   document.getElementById("texto1").innerHTML = "";
   document.getElementById(
     "valor2"
-  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: +
+  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: 
   <b>${tablasNovedad.join(", ")}</b>`;
   document.getElementById("texto2").innerHTML = "";
   document.getElementById(
     "valor3"
-  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: +
+  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: 
     <b>${tablasNovedad.join(", ")}</b>`;
   document.getElementById("texto3").innerHTML = "";
 }
