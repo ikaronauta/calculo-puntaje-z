@@ -59,9 +59,18 @@ function tallaParaEdad() {
   let resConsultaT1 = consultaTabla1();
   let resConsultaT2 = consultaTabla2();
 
-  // console.log(talla + " " + resConsultaT1 + " " + resConsultaT2);
   let resultado = (talla - resConsultaT1) / resConsultaT2;
-  mostrarResultado1(resultado);
+  console.log(
+    "Datos calculo 1.	Talla para la edad (T/E): (" +
+      talla +
+      " - " +
+      resConsultaT1 +
+      ") / " +
+      resConsultaT2 +
+      " = " +
+      resultado
+  );
+  mostrarResultado1(resConsultaT1, resConsultaT2, resultado);
 }
 
 function pesoParaEdad() {
@@ -74,7 +83,14 @@ function pesoParaEdad() {
   if (valor >= 13.6 && valor <= 15.3) sd = 1.7;
   else sd = valor;
 
-  // console.log(peso + " " + resConsultaT3 + " " + sd);
+  console.log(
+    "Datos calculo 2.	Peso para la edad (P/E): Peso - " +
+      peso +
+      ", Mediana (Tabla 3) - " +
+      resConsultaT3 +
+      ", SD - " +
+      sd
+  );
   let resultado = (peso - resConsultaT3) / sd;
 
   mostrarResultado2(resultado);
@@ -98,14 +114,19 @@ function pesoParaTalla() {
   if (resultado2 < 0) valor = consultaTabla8(tallaConsulta);
   else valor = consultaTabla7(tallaConsulta);
 
-  console.log(valor == 12.3);
-
   if (valor <= "13.4" && valor >= "12.3") sd = 1.1;
   else sd = valor;
 
   // let DE = resConsultaT6 - valor;
 
-  console.log(peso + " " + resConsultaT6 + " " + sd);
+  console.log(
+    "Datos calculo 3.	Peso para la talla (P/T): Peso - " +
+      peso +
+      ", Mediana (Tabla 6) - " +
+      resConsultaT6 +
+      ", SD - " +
+      sd
+  );
   let resultado = (peso - resConsultaT6) / sd;
 
   mostrarResultado3(resultado);
@@ -229,15 +250,17 @@ function consultaTabla8(ct) {
   return datosFiltrados[0].Media;
 }
 
-function mostrarResultado1(media) {
-  resultado1 = media;
+function mostrarResultado1(mediaT1, mediaT2, resultado) {
+  resultado1 = resultado;
   let textoResultado1;
-  if (media <= -3) textoResultado1 = "Desnutrición Crónica Severa";
-  else if (media > -3 && media <= -2)
+  if (resultado <= -3) textoResultado1 = "Desnutrición Crónica Severa";
+  else if (resultado > -3 && resultado <= -2)
     textoResultado1 = "Desnutrición Crónica Moderada";
   else textoResultado1 = "Normal";
 
-  document.getElementById("valor1").innerHTML = media.toFixed(2);
+  document.getElementById("valor1").innerHTML = `(${talla} - ${mediaT1.toFixed(
+    2
+  )}) / ${mediaT2.toFixed(2)} = ${resultado1.toFixed(2)}`;
   document.getElementById("texto1").innerHTML = textoResultado1;
 }
 
