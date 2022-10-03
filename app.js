@@ -24,6 +24,7 @@ import {
 
 let resultado1, resultado2, resultado3;
 let sexoNino, edad, peso, talla;
+let tablasNovedad = [];
 
 function inicio() {
   eventos();
@@ -34,6 +35,7 @@ function eventos() {
     edad = document.getElementById("edad").value;
     peso = document.getElementById("peso").value;
     talla = document.getElementById("talla").value;
+    tablasNovedad = [];
 
     if (
       document.querySelector('input[name="1"]:checked') == null ||
@@ -51,6 +53,8 @@ function eventos() {
       tallaParaEdad();
       pesoParaEdad();
       pesoParaTalla();
+
+      if (tablasNovedad.length > 0) mostrarErrores();
     }
   });
 }
@@ -60,16 +64,6 @@ function tallaParaEdad() {
   let resConsultaT2 = consultaTabla2();
 
   let resultado = (talla - resConsultaT1) / resConsultaT2;
-  console.log(
-    "Datos calculo 1.	Talla para la edad (T/E): (" +
-      talla +
-      " - " +
-      resConsultaT1 +
-      ") / " +
-      resConsultaT2 +
-      " = " +
-      resultado
-  );
   mostrarResultado1(resConsultaT1, resConsultaT2, resultado);
 }
 
@@ -83,17 +77,9 @@ function pesoParaEdad() {
   if (valor >= 13.6 && valor <= 15.3) sd = 1.7;
   else sd = valor;
 
-  console.log(
-    "Datos calculo 2.	Peso para la edad (P/E): Peso - " +
-      peso +
-      ", Mediana (Tabla 3) - " +
-      resConsultaT3 +
-      ", SD - " +
-      sd
-  );
   let resultado = (peso - resConsultaT3) / sd;
 
-  mostrarResultado2(resultado);
+  mostrarResultado2(resConsultaT3, sd, resultado);
 }
 
 function pesoParaTalla() {
@@ -118,18 +104,9 @@ function pesoParaTalla() {
   else sd = valor;
 
   // let DE = resConsultaT6 - valor;
-
-  console.log(
-    "Datos calculo 3.	Peso para la talla (P/T): Peso - " +
-      peso +
-      ", Mediana (Tabla 6) - " +
-      resConsultaT6 +
-      ", SD - " +
-      sd
-  );
   let resultado = (peso - resConsultaT6) / sd;
 
-  mostrarResultado3(resultado);
+  mostrarResultado3(resConsultaT6, sd, resultado);
 }
 
 function consultaTabla1() {
@@ -141,7 +118,8 @@ function consultaTabla1() {
     return dataNino.Edad == edad;
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla1");
 }
 
 function consultaTabla2() {
@@ -153,7 +131,8 @@ function consultaTabla2() {
     return dataNino.Edad == edad;
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla2");
 }
 
 function consultaTabla3() {
@@ -165,7 +144,8 @@ function consultaTabla3() {
     return dataNino.Edad == edad;
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla3");
 }
 
 function consultaTabla4() {
@@ -177,11 +157,8 @@ function consultaTabla4() {
     return dataNino.Edad == edad;
   });
 
-  if (datosFiltrados != "") return datosFiltrados[0].Media;
-  else
-    return alert(
-      "No se encontraron resultados a la consulta, por favor revise la información ingresada y vuelva a intentarlo."
-    );
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla4");
 }
 
 function consultaTabla5() {
@@ -193,7 +170,8 @@ function consultaTabla5() {
     return dataNino.Edad == edad;
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla5");
 }
 
 function consultaTabla6(ct) {
@@ -211,7 +189,8 @@ function consultaTabla6(ct) {
     return dataNino.Talla == ct;
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla6");
 }
 
 function consultaTabla7(ct) {
@@ -229,7 +208,8 @@ function consultaTabla7(ct) {
     return dataNino.Talla == ct;
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla7");
 }
 
 function consultaTabla8(ct) {
@@ -247,7 +227,8 @@ function consultaTabla8(ct) {
     return dataNino.Talla == parseInt(ct);
   });
 
-  return datosFiltrados[0].Media;
+  if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
+  else return tablasNovedad.push("tabla8");
 }
 
 function mostrarResultado1(mediaT1, mediaT2, resultado) {
@@ -264,18 +245,20 @@ function mostrarResultado1(mediaT1, mediaT2, resultado) {
   document.getElementById("texto1").innerHTML = textoResultado1;
 }
 
-function mostrarResultado2(media) {
+function mostrarResultado2(mediaT3, sd, media) {
   resultado2 = media;
   let textoResultado2;
   if (media <= -3) textoResultado2 = "Bajo peso severo";
   else if (media > -3 && media <= -2) textoResultado2 = "Bajo peso moderado";
   else textoResultado2 = "Normal";
 
-  document.getElementById("valor2").innerHTML = media.toFixed(2);
+  document.getElementById("valor2").innerHTML = `(${peso} - ${mediaT3.toFixed(
+    2
+  )}) / ${sd.toFixed(2)} = ${resultado2.toFixed(2)}`;
   document.getElementById("texto2").innerHTML = textoResultado2;
 }
 
-function mostrarResultado3(media) {
+function mostrarResultado3(mediaT6, sd, media) {
   resultado3 = media;
   let textoResultado3;
   if (media <= -3) textoResultado3 = "Desnutrición Aguda Severa";
@@ -288,8 +271,28 @@ function mostrarResultado3(media) {
   else if (media >= 2 && media < 2.99) textoResultado3 = "Sobrepeso";
   else textoResultado3 = "Obesidad";
 
-  document.getElementById("valor3").innerHTML = media.toFixed(2);
+  document.getElementById("valor3").innerHTML = `(${peso} - ${mediaT6.toFixed(
+    2
+  )}) / ${sd.toFixed(2)} = ${resultado3.toFixed(2)}`;
   document.getElementById("texto3").innerHTML = textoResultado3;
+}
+
+function mostrarErrores() {
+  document.getElementById(
+    "valor1"
+  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: +
+  <b>${tablasNovedad.join(", ")}</b>`;
+  document.getElementById("texto1").innerHTML = "";
+  document.getElementById(
+    "valor2"
+  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: +
+  <b>${tablasNovedad.join(", ")}</b>`;
+  document.getElementById("texto2").innerHTML = "";
+  document.getElementById(
+    "valor3"
+  ).innerHTML = `Parametros incorrectos para la consulta de las tablas: +
+    <b>${tablasNovedad.join(", ")}</b>`;
+  document.getElementById("texto3").innerHTML = "";
 }
 
 inicio();
