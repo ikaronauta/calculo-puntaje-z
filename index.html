@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="contenedorPrincipal">
+        <div class="tarjeta">
+            <div class="groupRadios">
+                <div>
+                    <input type="radio" id="nino" name="1" value="nino">
+                    <label for="nino">Niño</label>
+                </div>
+                <div>
+                    <input type="radio" id="nina" name="1" value="nina">
+                    <label for="nina">Niña</label>
+                </div>
+            </div>
+            <input type="number" class="input" placeholder="Ingrese la Edad" id="edad" />
+            <input type="number" class="input" placeholder="Ingrese el Peso" id="peso" />
+            <input type="number" class="input" placeholder="Ingrese la Talla" id="talla" />
+            <button id="calcular">Calcular</button>
+        </div>
+        <div class="tarjeta">
+            <h3>1. Talla para la edad (T/E)</h3>
+            <p id="valor1"></p>
+            <p id="texto1"></p>
+        </div>
+        <div class="tarjeta">
+            <h3>2. Peso para la edad (P/E)</h3>
+            <p id="valor2"></p>
+            <p id="texto2"></p>
+        </div>
+        <div class="tarjeta">
+            <h3>3. Peso para la talla (P/T)</h3>
+            <p id="valor3"></p>
+            <p id="texto3"></p>
+        </div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+</body>
+
+</html>
