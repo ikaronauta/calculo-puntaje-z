@@ -86,6 +86,8 @@ function pesoParaTalla() {
   let arrTalla = talla.split(".");
   let tallaConsulta, valor, sd;
 
+  console.log(arrTalla);
+
   if (arrTalla[1]) {
     if (arrTalla[1] > 0 && arrTalla[1] <= 5) {
       arrTalla.splice(1, 1, 5);
@@ -93,7 +95,11 @@ function pesoParaTalla() {
     } else {
       tallaConsulta = Math.round(talla);
     }
+  } else {
+    tallaConsulta = arrTalla[0];
   }
+
+  console.log(tallaConsulta);
 
   let resConsultaT6 = consultaTabla6(tallaConsulta);
 
