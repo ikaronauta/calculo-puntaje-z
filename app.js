@@ -74,8 +74,7 @@ function pesoParaEdad() {
   if (resultado1 < 0) valor = consultaTabla5();
   else valor = consultaTabla4();
 
-  if (valor >= 13.6 && valor <= 15.3) sd = 1.7;
-  else sd = valor;
+  sd = parseFloat(resConsultaT3 - valor);
 
   let resultado = (peso - resConsultaT3) / sd;
 
@@ -85,8 +84,6 @@ function pesoParaEdad() {
 function pesoParaTalla() {
   let arrTalla = talla.split(".");
   let tallaConsulta, valor, sd;
-
-  console.log(arrTalla);
 
   if (arrTalla[1]) {
     if (arrTalla[1] > 0 && arrTalla[1] <= 5) {
@@ -99,17 +96,15 @@ function pesoParaTalla() {
     tallaConsulta = arrTalla[0];
   }
 
-  console.log(tallaConsulta);
+  // console.log(tallaConsulta);
 
   let resConsultaT6 = consultaTabla6(tallaConsulta);
 
   if (resultado2 < 0) valor = consultaTabla8(tallaConsulta);
   else valor = consultaTabla7(tallaConsulta);
 
-  if (valor <= "13.4" && valor >= "12.3") sd = 1.1;
-  else sd = valor;
+  sd = parseFloat(resConsultaT6 - valor);
 
-  // let DE = resConsultaT6 - valor;
   let resultado = (peso - resConsultaT6) / sd;
 
   mostrarResultado3(resConsultaT6, sd, resultado);
