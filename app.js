@@ -100,7 +100,7 @@ function pesoParaTalla() {
 
   let resConsultaT6 = consultaTabla6(tallaConsulta);
 
-  if (resultado2 < 0) valor = consultaTabla8(tallaConsulta);
+  if (resultado1 < 0) valor = consultaTabla8(tallaConsulta);
   else valor = consultaTabla7(tallaConsulta);
 
   sd = parseFloat(resConsultaT6 - valor);
