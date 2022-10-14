@@ -11,7 +11,7 @@ body {
   height: 100%;
 
   background: linear-gradient(
-    40deg,
+    90deg,
     rgb(40, 190, 236),
     rgb(45, 180, 180),
     rgb(65, 225, 172),
@@ -34,7 +34,7 @@ body {
 
 .tarjeta {
   width: 250px;
-  height: 200px;
+  height: 300px;
   margin: 1rem;
   text-align: center;
   display: flex;
@@ -50,6 +50,7 @@ body {
 }
 
 .groupRadios {
+  width: 100%;
   display: flex;
   justify-content: space-around;
 }
@@ -62,7 +63,7 @@ button {
 }
 
 input[type="radio"] {
-  margin: 0 5px;
+  display: none;
 }
 
 .valores {
@@ -72,4 +73,38 @@ input[type="radio"] {
 b {
   color: red;
   font-size: 1.3rem;
+}
+
+img {
+  padding: 5%;
+  border-radius: 50%;
+  border: 3px solid rgb(82, 81, 81);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.disable {
+  opacity: 50%;
+}
+
+.active {
+  border-radius: 2px solid rgb(255, 166, 0);
+}
+
+.semaforo {
+  width: 100%;
+  display: flex;
+}
+
+.item {
+  height: 3rem;
+  width: 33%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  font-size: 0.6rem;
+  margin: 1%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
