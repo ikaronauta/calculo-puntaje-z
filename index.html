@@ -17,19 +17,25 @@
     <div class="contenedorPrincipal">
         <div class="tarjeta">
             <div class="groupRadios">
-                <div>
-                    <input type="radio" id="nino" name="1" value="nino">
-                    <label for="nino">Niño</label>
-                </div>
-                <div>
-                    <input type="radio" id="nina" name="1" value="nina">
-                    <label for="nina">Niña</label>
-                </div>
+                <input type="radio" id="nino" name="1" value="nino">
+                <label for="nino" class="nino">
+                    <img id="ninoImg" src="./assets/img/nino.png" alt="Niño">
+                </label>
+
+                <input type="radio" id="nina" name="1" value="nina">
+                <label for="nina" class="nino">
+                    <img id="ninaImg" src="./assets/img/nina.png" alt="Niña">
+                </label>
             </div>
             <input type="number" class="input" placeholder="Ingrese la Edad" id="edad" />
             <input type="number" class="input" placeholder="Ingrese el Peso" id="peso" />
             <input type="number" class="input" placeholder="Ingrese la Talla" id="talla" />
             <button id="calcular">Calcular</button>
+            <div class="semaforo">
+                <div class="item" id="item1">Talla para la edad (T/E)</div>
+                <div class="item" id="item2">Peso para la edad (P/E)</div>
+                <div class="item" id="item3">Peso para la talla (P/T)</div>
+            </div>
         </div>
         <div class="tarjeta">
             <h3>1. Talla para la edad (T/E)</h3>

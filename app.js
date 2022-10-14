@@ -31,6 +31,10 @@ function inicio() {
 }
 
 function eventos() {
+  document.querySelectorAll('input[name="1"]').forEach((item) => {
+    item.addEventListener("change", ninoActivo);
+  });
+
   document.getElementById("calcular").addEventListener("click", function () {
     edad = document.getElementById("edad").value;
     peso = document.getElementById("peso").value;
@@ -95,9 +99,7 @@ function pesoParaTalla() {
   } else {
     tallaConsulta = arrTalla[0];
   }
-
-  // console.log(tallaConsulta);
-
+  
   let resConsultaT6 = consultaTabla6(tallaConsulta);
 
   if (resultado1 < 0) valor = consultaTabla8(tallaConsulta);
@@ -235,47 +237,85 @@ function consultaTabla8(ct) {
 function mostrarResultado1(mediaT1, mediaT2, resultado) {
   resultado1 = resultado;
   let textoResultado1;
-  if (resultado <= -3) textoResultado1 = "Desnutrición Crónica Severa";
-  else if (resultado > -3 && resultado <= -2)
+  if (resultado <= -3) {
+    textoResultado1 = "Desnutrición Crónica Severa";
+    document.getElementById("item1").style.backgroundColor = "red";
+    document.getElementById("item1").style.color = "white";
+  } else if (resultado > -3 && resultado <= -2) {
     textoResultado1 = "Desnutrición Crónica Moderada";
-  else textoResultado1 = "Normal";
+    document.getElementById("item1").style.backgroundColor = "yellow";
+    document.getElementById("item1").style.color = "black";
+  } else {
+    textoResultado1 = "Normal";
+    document.getElementById("item1").style.backgroundColor = "green";
+    document.getElementById("item1").style.color = "white";
+  }
 
   document.getElementById("valor1").innerHTML = `(${talla} - ${mediaT1.toFixed(
     2
   )}) / ${mediaT2.toFixed(2)} = ${resultado1.toFixed(2)}`;
   document.getElementById("texto1").innerHTML = textoResultado1;
+  document.getElementById("item1").innerHTML = textoResultado1;
 }
 
 function mostrarResultado2(mediaT3, sd, media) {
   resultado2 = media;
   let textoResultado2;
-  if (media <= -3) textoResultado2 = "Bajo peso severo";
-  else if (media > -3 && media <= -2) textoResultado2 = "Bajo peso moderado";
-  else textoResultado2 = "Normal";
+  if (media <= -3) {
+    textoResultado2 = "Bajo peso severo";
+    document.getElementById("item2").style.backgroundColor = "red";
+    document.getElementById("item2").style.color = "white";
+  } else if (media > -3 && media <= -2) {
+    textoResultado2 = "Bajo peso moderado";
+    document.getElementById("item2").style.backgroundColor = "yellow";
+    document.getElementById("item2").style.color = "black";
+  } else {
+    textoResultado2 = "Normal";
+    document.getElementById("item2").style.backgroundColor = "green";
+    document.getElementById("item2").style.color = "white";
+  }
 
   document.getElementById("valor2").innerHTML = `(${peso} - ${mediaT3.toFixed(
     2
   )}) / ${sd.toFixed(2)} = ${resultado2.toFixed(2)}`;
   document.getElementById("texto2").innerHTML = textoResultado2;
+  document.getElementById("item2").innerHTML = textoResultado2;
 }
 
 function mostrarResultado3(mediaT6, sd, media) {
   resultado3 = media;
   let textoResultado3;
-  if (media <= -3) textoResultado3 = "Desnutrición Aguda Severa";
-  else if (media >= -2.99 && media <= -2)
+  if (media <= -3) {
+    textoResultado3 = "Desnutrición Aguda Severa";
+    document.getElementById("item3").style.backgroundColor = "red";
+    document.getElementById("item3").style.color = "white";
+  } else if (media >= -2.99 && media <= -2) {
     textoResultado3 = "Desnutrición Aguda Moderada";
-  else if (media >= -1.99 && media <= 1.5)
+    document.getElementById("item3").style.backgroundColor = "orange";
+    document.getElementById("item3").style.color = "white";
+  } else if (media >= -1.99 && media <= 1.5) {
     textoResultado3 = "Riesgo desnutrición aguda";
-  else if (media >= -1.49 && media < 1.99)
+    document.getElementById("item3").style.backgroundColor = "yellow";
+    document.getElementById("item3").style.color = "black";
+  } else if (media >= -1.49 && media < 1.99) {
     textoResultado3 = "Estado nutricional normal";
-  else if (media >= 2 && media < 2.99) textoResultado3 = "Sobrepeso";
-  else textoResultado3 = "Obesidad";
+    document.getElementById("item3").style.backgroundColor = "green";
+    document.getElementById("item3").style.color = "white";
+  } else if (media >= 2 && media < 2.99) {
+    textoResultado3 = "Sobrepeso";
+    document.getElementById("item3").style.backgroundColor = "yellow";
+    document.getElementById("item3").style.color = "black";
+  } else {
+    textoResultado3 = "Obesidad";
+    document.getElementById("item3").style.backgroundColor = "green";
+    document.getElementById("item3").style.color = "white";
+  }
 
   document.getElementById("valor3").innerHTML = `(${peso} - ${mediaT6.toFixed(
     2
   )}) / ${sd.toFixed(2)} = ${resultado3.toFixed(2)}`;
   document.getElementById("texto3").innerHTML = textoResultado3;
+  document.getElementById("item3").innerHTML = textoResultado3;
 }
 
 function mostrarErrores() {
@@ -294,6 +334,22 @@ function mostrarErrores() {
   ).innerHTML = `Parametros incorrectos para la consulta de las tablas: 
     <b>${tablasNovedad.join(", ")}</b>`;
   document.getElementById("texto3").innerHTML = "";
+}
+
+function ninoActivo() {
+  if (this.value == "nino") {
+    document.getElementById("ninaImg").className = "disable";
+    document.getElementById("ninaImg").style.border = "3px solid gray";
+    document.getElementById("ninoImg").className = "";
+    document.getElementById("ninoImg").style.border =
+      "3px solid rgb(255, 166, 0)";
+  } else {
+    document.getElementById("ninoImg").className = "disable";
+    document.getElementById("ninoImg").style.border = "3px solid gray";
+    document.getElementById("ninaImg").className = "";
+    document.getElementById("ninaImg").style.border =
+      "3px solid rgb(255, 166, 0)";
+  }
 }
 
 inicio();
