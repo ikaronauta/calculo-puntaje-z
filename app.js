@@ -99,7 +99,7 @@ function pesoParaTalla() {
   } else {
     tallaConsulta = arrTalla[0];
   }
-  
+
   let resConsultaT6 = consultaTabla6(tallaConsulta);
 
   if (resultado1 < 0) valor = consultaTabla8(tallaConsulta);
@@ -293,7 +293,7 @@ function mostrarResultado3(mediaT6, sd, media) {
     textoResultado3 = "Desnutrición Aguda Moderada";
     document.getElementById("item3").style.backgroundColor = "orange";
     document.getElementById("item3").style.color = "white";
-  } else if (media >= -1.99 && media <= 1.5) {
+  } else if (media >= -1.99 && media <= -1.5) {
     textoResultado3 = "Riesgo desnutrición aguda";
     document.getElementById("item3").style.backgroundColor = "yellow";
     document.getElementById("item3").style.color = "black";

@@ -108,3 +108,15 @@ img {
   justify-content: center;
   align-items: center;
 }
+
+#tarjeta1,
+#tarjeta2,
+#tarjeta3 {
+  display: none;
+}
+
+#texto1,
+#texto2,
+#texto3 {
+  cursor: pointer;
+}
