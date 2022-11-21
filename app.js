@@ -25,43 +25,108 @@ import {
 let resultado1, resultado2, resultado3;
 let sexoNino, edad, peso, talla;
 let tablasNovedad = [];
-
+var edadC = {}; //(edad a Calculada)
+var edadF = 0; //(edad final)
 function inicio() {
   eventos();
 }
 
 function eventos() {
+  document.getElementById("edad").addEventListener("change", ageCalculator);
   document.querySelectorAll('input[name="1"]').forEach((item) => {
     item.addEventListener("change", ninoActivo);
   });
 
   document.getElementById("calcular").addEventListener("click", function () {
-    edad = document.getElementById("edad").value;
+
     peso = document.getElementById("peso").value;
     talla = document.getElementById("talla").value;
     tablasNovedad = [];
 
     if (
       document.querySelector('input[name="1"]:checked') == null ||
-      edad == "" ||
+      document.getElementById("edad").value == "" ||
       peso == "" ||
       talla == ""
     ) {
       alert("Ingrese toda la información para poder continuar");
     } else {
       sexoNino = document.querySelector('input[name="1"]:checked').value;
-      // edad = document.getElementById("edad").value;
-      // peso = document.getElementById("peso").value;
-      // talla = document.getElementById("talla").value;
-
       tallaParaEdad();
       pesoParaEdad();
       pesoParaTalla();
-
       if (tablasNovedad.length > 0) mostrarErrores();
+
     }
   });
 }
+function ageCalculator() {
+  var userinput = document.getElementById("edad").value;
+  var dateParts = userinput.split("-");
+
+
+  // month is 0-based, that's why we need dataParts[1] - 1
+  var dob = new Date(dateParts[0], dateParts[1] - 1, +dateParts[2]);
+
+
+  //check user provide input or not  
+  if (userinput == null || userinput == '') {
+    return false;
+  }
+
+  //execute if the user entered a date   
+  else {
+    //extract the year, month, and date from user date input  
+    var dobYear = dob.getYear();
+    var dobMonth = dob.getMonth();
+    var dobDate = dob.getDate();
+    //get the current date from the system  
+    var now = new Date();
+    //extract the year, month, and date from current date  
+    var currentYear = now.getYear();
+    var currentMonth = now.getMonth();
+    var currentDate = now.getDate();
+
+    //declare a variable to collect the age in year, month, and days  
+    var ageString = "";
+
+    //get years  
+    var yearAge = currentYear - dobYear;
+
+    //get months  
+    if (currentMonth >= dobMonth)
+      //get months when current month is greater  
+      var monthAge = currentMonth - dobMonth;
+    else {
+      yearAge--;
+      var monthAge = 12 + currentMonth - dobMonth;
+    }
+
+    //get days  
+    if (currentDate >= dobDate)
+      //get days when the current date is greater  
+      var dateAge = currentDate - dobDate;
+    else {
+      monthAge--;
+      var dateAge = 31 + currentDate - dobDate;
+
+      if (monthAge < 0) {
+        monthAge = 11;
+        yearAge--;
+      }
+    }
+    //group the age in a single variable  
+    edadC = {
+      years: yearAge,
+      months: monthAge,
+      days: dateAge
+    };
+
+  }
+  edadF = (edadC.years + "." + edadC.months);
+
+};
+
 
 function tallaParaEdad() {
   let resConsultaT1 = consultaTabla1();
@@ -113,12 +178,14 @@ function pesoParaTalla() {
 }
 
 function consultaTabla1() {
+  console.log(edadF)
   let dataNinos;
   if (sexoNino == "nino") dataNinos = ninosTabla1;
   else dataNinos = ninasTabla1;
 
   let datosFiltrados = dataNinos.filter(function (dataNino) {
-    return dataNino.Edad == edad;
+    return dataNino.Edad == edadF;
+
   });
 
   if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
@@ -131,7 +198,7 @@ function consultaTabla2() {
   else dataNinos = ninasTabla2;
 
   let datosFiltrados = dataNinos.filter(function (dataNino) {
-    return dataNino.Edad == edad;
+    return dataNino.Edad == edadF;
   });
 
   if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
@@ -144,7 +211,7 @@ function consultaTabla3() {
   else dataNinos = ninasTabla3;
 
   let datosFiltrados = dataNinos.filter(function (dataNino) {
-    return dataNino.Edad == edad;
+    return dataNino.Edad == edadF;
   });
 
   if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
@@ -157,7 +224,7 @@ function consultaTabla4() {
   else dataNinos = ninasTabla4;
 
   let datosFiltrados = dataNinos.filter(function (dataNino) {
-    return dataNino.Edad == edad;
+    return dataNino.Edad == edadF;
   });
 
   if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
@@ -170,7 +237,7 @@ function consultaTabla5() {
   else dataNinos = ninasTabla5;
 
   let datosFiltrados = dataNinos.filter(function (dataNino) {
-    return dataNino.Edad == edad;
+    return dataNino.Edad == edadF;
   });
 
   if (datosFiltrados.length > 0) return datosFiltrados[0].Media;
@@ -181,10 +248,10 @@ function consultaTabla6(ct) {
   let dataNinos;
 
   if (sexoNino == "nino") {
-    if (edad < 2) dataNinos = ninosMenoresTabla6;
+    if (edadF < 2) dataNinos = ninosMenoresTabla6;
     else dataNinos = ninosMayoresTabla6;
   } else {
-    if (edad < 2) dataNinos = ninasMenoresTabla6;
+    if (edadF < 2) dataNinos = ninasMenoresTabla6;
     else dataNinos = ninasMayoresTabla6;
   }
 
@@ -200,10 +267,10 @@ function consultaTabla7(ct) {
   let dataNinos;
 
   if (sexoNino == "nino") {
-    if (edad < 2) dataNinos = ninosMenoresTabla7;
+    if (edadF < 2) dataNinos = ninosMenoresTabla7;
     else dataNinos = ninosMayoresTabla7;
   } else {
-    if (edad < 2) dataNinos = ninasMenoresTabla7;
+    if (edadF < 2) dataNinos = ninasMenoresTabla7;
     else dataNinos = ninasMayoresTabla7;
   }
 
@@ -219,10 +286,10 @@ function consultaTabla8(ct) {
   let dataNinos;
 
   if (sexoNino == "nino") {
-    if (edad < 2) dataNinos = ninosMenoresTabla8;
+    if (edadF < 2) dataNinos = ninosMenoresTabla8;
     else dataNinos = ninosMayoresTabla8;
   } else {
-    if (edad < 2) dataNinos = ninasMenoresTabla8;
+    if (edadF < 2) dataNinos = ninasMenoresTabla8;
     else dataNinos = ninasMayoresTabla8;
   }
 
