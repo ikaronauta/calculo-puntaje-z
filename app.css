@@ -32,7 +32,7 @@ body {
 
 .tarjeta {
   width: 250px;
-  height: 300px;
+  height: 480px;
   margin: 1rem;
   text-align: center;
   display: flex;
@@ -107,8 +107,14 @@ img {
   align-items: center;
 }
 
+#calcular{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+#Reset{
+  margin-bottom: 10px;
 
-
+}
 #texto1,
 #texto2,
 #texto3 {

@@ -59,41 +59,99 @@ function eventos() {
 
     }
   });
+  document.getElementById("Reset").addEventListener("click", function () {
+    document.getElementById("fechaRegistro").value = "";
+    document.getElementById("edad").value = "";
+    document.getElementById("peso").value = "";
+    document.getElementById("talla").value = "";
+    document.querySelectorAll('input[name="1"]').forEach((item) => {
+      item.checked = false;
+    });
+    ninoinActivo();
+  });
 }
 function ageCalculator() {
   var userinput = document.getElementById("edad").value;
-  var dateParts = userinput.split("-");
+  var userinputRegisterDate = document.getElementById("fechaRegistro").value;
+  if (userinputRegisterDate == "") {
+    var dateParts = userinput.split("-");
+    // month is 0-based, that's why we need dataParts[1] - 1
+    var dob = new Date(dateParts[0], dateParts[1] - 1, +dateParts[2]);
 
+    //check user provide input or not  
+    if (userinput == null || userinput == '') {
+      return false;
+    }
 
-  // month is 0-based, that's why we need dataParts[1] - 1
-  var dob = new Date(dateParts[0], dateParts[1] - 1, +dateParts[2]);
+    //execute if the user entered a date   
+    else {
+      //extract the year, month, and date from user date input  
+      var dobYear = dob.getYear();
+      var dobMonth = dob.getMonth();
+      var dobDate = dob.getDate();
+      //get the current date from the system  
+      var now = new Date();
+      //extract the year, month, and date from current date  
+      var currentYear = now.getYear();
+      var currentMonth = now.getMonth();
+      var currentDate = now.getDate();
 
+      //declare a variable to collect the age in year, month, and days  
+      var ageString = "";
 
-  //check user provide input or not  
-  if (userinput == null || userinput == '') {
-    return false;
-  }
+      //get years  
+      var yearAge = currentYear - dobYear;
 
-  //execute if the user entered a date   
-  else {
+      //get months  
+      if (currentMonth >= dobMonth)
+        //get months when current month is greater  
+        var monthAge = currentMonth - dobMonth;
+      else {
+        yearAge--;
+        var monthAge = 12 + currentMonth - dobMonth;
+      }
+
+      //get days  
+      if (currentDate >= dobDate)
+        //get days when the current date is greater  
+        var dateAge = currentDate - dobDate;
+      else {
+        monthAge--;
+        var dateAge = 31 + currentDate - dobDate;
+
+        if (monthAge < 0) {
+          monthAge = 11;
+          yearAge--;
+        }
+      }
+      //group the age in a single variable  
+      edadC = {
+        years: yearAge,
+        months: monthAge,
+        days: dateAge
+      };
+      edadF = (edadC.years + "." + edadC.months);
+      console.log(edadF)
+    }
+  } else {
+    dateParts = userinput.split("-");
+    var RegisterDateNow = userinputRegisterDate.split("-");
+    dob = new Date(dateParts[0], dateParts[1] - 1, +dateParts[2]);
+    now = new Date(RegisterDateNow[0], RegisterDateNow[1] - 1, +RegisterDateNow[2]);
     //extract the year, month, and date from user date input  
     var dobYear = dob.getYear();
     var dobMonth = dob.getMonth();
     var dobDate = dob.getDate();
-    //get the current date from the system  
-    var now = new Date();
     //extract the year, month, and date from current date  
-    var currentYear = now.getYear();
-    var currentMonth = now.getMonth();
-    var currentDate = now.getDate();
+    currentYear = now.getYear();
+    currentMonth = now.getMonth();
+    currentDate = now.getDate();
 
-    //declare a variable to collect the age in year, month, and days  
-    var ageString = "";
 
     //get years  
     var yearAge = currentYear - dobYear;
 
-    //get months  
+    //get months 
     if (currentMonth >= dobMonth)
       //get months when current month is greater  
       var monthAge = currentMonth - dobMonth;
@@ -101,7 +159,6 @@ function ageCalculator() {
       yearAge--;
       var monthAge = 12 + currentMonth - dobMonth;
     }
-
     //get days  
     if (currentDate >= dobDate)
       //get days when the current date is greater  
@@ -121,9 +178,9 @@ function ageCalculator() {
       months: monthAge,
       days: dateAge
     };
-
+    edadF = (edadC.years + "." + edadC.months);
+    console.log(edadF)
   }
-  edadF = (edadC.years + "." + edadC.months);
 
 };
 
@@ -418,5 +475,14 @@ function ninoActivo() {
       "3px solid rgb(255, 166, 0)";
   }
 }
+function ninoinActivo() {
+
+  document.getElementById("ninoImg").className = "disable";
+  document.getElementById("ninoImg").style.border = "3px solid gray";
+  document.getElementById("ninaImg").className = "disable";
+  document.getElementById("ninaImg").style.border = "3px solid gray";
+
+}
+
 
 inicio();
